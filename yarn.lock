@@ -834,6 +834,18 @@
     follow-redirects "^1.2.5"
     is-buffer "^1.1.5"
 
+"@contentful/rich-text-html-renderer@^2.9.0":
+  version "2.9.0"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-html-renderer/-/rich-text-html-renderer-2.9.0.tgz#f119d50e454bceb48a266c965ad5a516e45002fb"
+  integrity sha512-NRkOipPfrS4dTGKuTWVWgC8sPU9mWRi3hfSuBPc42udE7ZrdP32ybXFiifXR2f3o9SKELmTEr3zBrX+u93whOA==
+  dependencies:
+    "@contentful/rich-text-types" "^5.0.0"
+
+"@contentful/rich-text-types@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@contentful/rich-text-types/-/rich-text-types-5.0.0.tgz#d2d02d9b7c10115bcc960cee3e1c381eb9d16b84"
+  integrity sha512-NPmsk0xCC/OoZUIpZqByFEYCktIcyUakKrzDlSA9YLklCdgahEr6qbSghIsQ/wVclnQhwVq28psJ0agHXdLCSQ==
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"

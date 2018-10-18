@@ -5,6 +5,10 @@ export class Contentful {
 
   constructor({ space, accessToken }) {
     this.client = createClient({ space, accessToken });
+
+    (async () => {
+      console.log(await this.client.getEntries({content_type: 'testMarkdown'}));
+    })();
   }
 
   static newArticle = (baseArticle) => {
