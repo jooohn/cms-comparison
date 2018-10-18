@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   Button,
-  Card, Chip,
+  Chip,
   Divider,
   Drawer,
   List,
