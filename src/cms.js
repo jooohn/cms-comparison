@@ -46,7 +46,7 @@ export class Contentful {
   fetchArticle = async (item) => {
     // NOTE: We have to call getEntries API to include associations.
     const response = await this.client.getEntries({
-      'sys.id': item.id,
+      'sys.id': item.id || item,
       limit: 1,
       include: 2,
     });

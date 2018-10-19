@@ -1,4 +1,6 @@
 import React from 'react';
+import { withRouter, Route } from "react-router";
+import PropTypes from 'prop-types'
 import {
   Button,
   Divider,
@@ -16,6 +18,9 @@ const sample = JSON.parse(`
 `);
 
 class CmsDemo extends React.Component {
+  static propTypes = {
+    history: PropTypes.object.isRequired,
+  }
 
   constructor(props) {
     super(props);
@@ -23,7 +28,6 @@ class CmsDemo extends React.Component {
     this.state = {
       list: [],
       listDescription: '',
-      detail: null,
     };
   }
 
@@ -36,8 +40,11 @@ class CmsDemo extends React.Component {
   };
 
   showDetail = article => async e => {
-    const detail = await this.props.cms.fetchArticle(article);
-    this.setState({ detail });
+    const { history } = this.props;
+    const newPath = `/article/${article.id}`;
+    if(history.location.pathname !== newPath) {
+      history.push(`/article/${article.id}`);
+    }
   };
 
   searchByTag = tag => async e => {
@@ -49,8 +56,8 @@ class CmsDemo extends React.Component {
   };
 
   render = () => {
-    const { classes } = this.props;
-    const { list, listDescription, detail } = this.state;
+    const { cms, classes } = this.props;
+    const { list, listDescription } = this.state;
     return (
       <div className={classes.root}>
         <Drawer
@@ -73,13 +80,16 @@ class CmsDemo extends React.Component {
             ))}
           </List>
         </Drawer>
-        <div className={classes.content}>
-          {detail && <ArticleRenderer 
-            article={detail} 
-            onTagSelected={this.searchByTag} 
-            onArticleSelected={this.showDetail}
-          />}
-        </div>
+        <Route path="/article/:articleId" render={({match}) => 
+          <div className={classes.content}>
+            {<ArticleRenderer 
+              cms={cms}
+              articleId={match.params.articleId}
+              onTagSelected={this.searchByTag} 
+              onArticleSelected={this.showDetail}
+            />}
+          </div>
+        } />
       </div>
     );
   };
@@ -105,4 +115,4 @@ export default withStyles(theme => ({
     width: 240,
   },
   toolbar: theme.mixins.toolbar,
-}))(CmsDemo);
+}))(withRouter(CmsDemo));

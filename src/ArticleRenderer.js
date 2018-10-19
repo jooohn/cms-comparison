@@ -7,20 +7,48 @@ import {
   Typography,
   withStyles
 } from '@material-ui/core';
-import { Article } from "./models/Article";
+import { Contentful } from "./cms";
 import RichText from "./RichText";
 
 class ArticleRenderer extends React.Component {
   static propTypes = {
-    article: PropTypes.instanceOf(Article),
+    cms: PropTypes.instanceOf(Contentful),
+
+    articleId: PropTypes.string,
+
     /** f(tag: string) */
     onTagSelected: PropTypes.func,
     /** f(article: Article) */
     onArticleSelected: PropTypes.func,
   }
 
+  constructor(props) {
+    super(props);
+    this.state = { 
+      article: null,
+    };
+  }
+
+  componentDidMount() {
+    this._loadArticle();    
+  }
+  componentDidUpdate() {
+    this._loadArticle();
+  }
+  _loadArticle() {
+    const { cms, articleId } = this.props;
+    if(!(this.state.article && this.state.article.id === articleId)) {
+      cms.fetchArticle(articleId).then((article) => {
+        this.setState({ article });
+      });
+    }
+  }
+
   render() {
-    const { article, onTagSelected, onArticleSelected } = this.props;
+    const { onTagSelected, onArticleSelected } = this.props;
+    const { article } = this.state;
+
+    if (! article) return <React.Fragment />;
     return (
       <React.Fragment>
         <Typography variant="h2">

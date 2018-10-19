@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { HashRouter } from 'react-router-dom'
 import { Contentful } from "./cms";
 import CmsDemo from './CmsDemo';
 import './App.css';
@@ -12,9 +13,11 @@ const contentful = new Contentful({
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <CmsDemo cms={contentful} />
-      </div>
+      <HashRouter>
+        <div className="App">
+          <CmsDemo cms={contentful} />
+        </div>
+      </HashRouter>
     );
   }
 }
