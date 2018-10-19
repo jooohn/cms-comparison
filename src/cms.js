@@ -3,8 +3,8 @@ import { Article } from "./models/Article";
 
 export class Contentful {
 
-  constructor({ space, accessToken }) {
-    this.client = createClient({ space, accessToken });
+  constructor({ space, host, accessToken }) {
+    this.client = createClient({ space, host, accessToken });
 
     (async () => {
       console.log(await this.client.getEntries({content_type: 'testMarkdown'}));
@@ -43,10 +43,10 @@ export class Contentful {
     return articles;
   };
 
-  fetchArticle = async (item) => {
+  fetchArticleById = async (id) => {
     // NOTE: We have to call getEntries API to include associations.
     const response = await this.client.getEntries({
-      'sys.id': item.id,
+      'sys.id': id,
       limit: 1,
       include: 2,
     });
