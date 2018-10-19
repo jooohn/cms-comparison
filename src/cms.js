@@ -3,8 +3,8 @@ import { Article } from "./models/Article";
 
 export class Contentful {
 
-  constructor({ space, accessToken }) {
-    this.client = createClient({ space, accessToken });
+  constructor({ space, host, accessToken }) {
+    this.client = createClient({ space, host, accessToken });
 
     (async () => {
       console.log(await this.client.getEntries({content_type: 'testMarkdown'}));

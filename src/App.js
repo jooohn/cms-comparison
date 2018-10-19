@@ -5,7 +5,8 @@ import './App.css';
 
 const contentful = new Contentful({
   space: process.env.REACT_APP_CONTENTFUL_SPACE_ID,
-  accessToken: process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN,
+  host: process.env.REACT_APP_CONTENTFUL_HOST || "cdn.contentful.com", // Specify "preview.contentful.com" for preview
+  accessToken: process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN, // Specify CDA or Preview API Access token
 });
 
 class App extends Component {
