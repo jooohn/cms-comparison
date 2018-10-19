@@ -38,7 +38,7 @@ class ArticleRenderer extends React.Component {
   _loadArticle() {
     const { cms, articleId } = this.props;
     if(!(this.state.article && this.state.article.id === articleId)) {
-      cms.fetchArticle(articleId).then((article) => {
+      cms.fetchArticleById(articleId).then((article) => {
         this.setState({ article });
       });
     }
