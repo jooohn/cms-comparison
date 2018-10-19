@@ -9,10 +9,10 @@ COPY package*.json yarn.lock ./
 RUN yarn install --frozen-lockfile --non-interactive && yarn cache clean
 # Should cache above layer in CI/CD
 
-ADD . .
+COPY . .
 # TODO: Remove --passWithNoTests flag when we add some tests (e.g. tests of model or infrastructure layer)
 RUN yarn test --ci=true --color=false --passWithNoTests
 RUN yarn build
-# Districute ./build/**
+# Distribute ./build/**
 
 # TODO: Run this in GitHub Actions to publish ./build/** contents into S3 or something.
