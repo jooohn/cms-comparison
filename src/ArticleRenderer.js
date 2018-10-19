@@ -35,7 +35,7 @@ class ArticleRenderer extends React.Component {
     const { onTagSelected, onArticleSelected } = this.props;
     const { article } = this.state;
 
-    if (! article) return <React.Fragment />;
+    if (! article) return null;
     return (
       <React.Fragment>
         <Typography variant="h2">
