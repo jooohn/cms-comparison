@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter, Route } from "react-router";
-import PropTypes from 'prop-types'
 import {
   Button,
   Divider,
@@ -18,10 +17,6 @@ const sample = JSON.parse(`
 `);
 
 class CmsDemo extends React.Component {
-  static propTypes = {
-    history: PropTypes.object.isRequired,
-  }
-
   constructor(props) {
     super(props);
 

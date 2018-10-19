@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types'
 import {
   Chip,
   List,
@@ -7,21 +6,9 @@ import {
   Typography,
   withStyles
 } from '@material-ui/core';
-import { Contentful } from "./cms";
 import RichText from "./RichText";
 
 class ArticleRenderer extends React.Component {
-  static propTypes = {
-    cms: PropTypes.instanceOf(Contentful),
-
-    articleId: PropTypes.string,
-
-    /** f(tag: string) */
-    onTagSelected: PropTypes.func,
-    /** f(article: Article) */
-    onArticleSelected: PropTypes.func,
-  }
-
   constructor(props) {
     super(props);
     this.state = { 
