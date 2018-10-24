@@ -58,6 +58,17 @@ export class Contentful {
     }
   };
 
+  fetchStaticContentByIdentity = async (identity) => {
+    // NOTE: We have to call getEntries API to include associations.
+    const response = await this.client.getEntries({
+      content_type: 'staticContent',
+      'fields.identity': identity,
+      limit: 1,
+    });
+    const detail = response.items[0];
+    return (detail) ? detail.fields.html : '';
+  };
+
   searchByTag = async (tag) => {
     const response = await this.client.getEntries({
       content_type: 'article',

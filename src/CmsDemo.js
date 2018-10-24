@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Route } from "react-router";
+import { withRouter, Route, Switch } from "react-router";
 import {
   Button,
   Divider,
@@ -10,6 +10,7 @@ import {
   withStyles
 } from '@material-ui/core';
 import ArticleRenderer from "./ArticleRenderer";
+import Static from './Static';
 
 // eslint-disable-next-line
 const sample = JSON.parse(`
@@ -55,36 +56,45 @@ class CmsDemo extends React.Component {
     const { list, listDescription } = this.state;
     return (
       <div className={classes.root}>
-        <Drawer
-          variant="permanent"
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <Button onClick={this.showFeaturedArticles} variant="contained" color="primary" >
-            Fetch Featured Articles
-          </Button>
-          <Divider />
-          <List subheader={
-            <ListSubheader component="div">{listDescription}</ListSubheader>
-          }>
-            {list.map((article) => (
-              <ListItem key={article.id} button onClick={this.showDetail(article)} >
-                {article.title}
-              </ListItem>
-            ))}
-          </List>
-        </Drawer>
-        <Route path="/article/:articleId" render={({match}) => 
-          <div className={classes.content}>
-            {<ArticleRenderer 
-              cms={cms}
-              articleId={match.params.articleId}
-              onTagSelected={this.searchByTag} 
-              onArticleSelected={this.showDetail}
-            />}
-          </div>
-        } />
+        <Switch>
+          <Route path="/static/:contentId" render={({ match }) => (
+            <Static cms={cms} contentId={match.params.contentId} />
+          )}/>
+          <Route render={() => (
+            <React.Fragment>
+              <Drawer
+                variant="permanent"
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+              >
+                <Button onClick={this.showFeaturedArticles} variant="contained" color="primary" >
+                  Fetch Featured Articles
+                </Button>
+                <Divider />
+                <List subheader={
+                  <ListSubheader component="div">{listDescription}</ListSubheader>
+                }>
+                  {list.map((article) => (
+                    <ListItem key={article.id} button onClick={this.showDetail(article)} >
+                      {article.title}
+                    </ListItem>
+                  ))}
+                </List>
+              </Drawer>
+              <Route path="/article/:articleId" render={({match}) =>
+                <div className={classes.content}>
+                  {<ArticleRenderer
+                    cms={cms}
+                    articleId={match.params.articleId}
+                    onTagSelected={this.searchByTag}
+                    onArticleSelected={this.showDetail}
+                  />}
+                </div>
+              } />
+            </React.Fragment>
+          )}/>
+        </Switch>
       </div>
     );
   };
